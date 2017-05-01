@@ -1,0 +1,5 @@
+requests==2.11.1
+Pillow==4.1.1
+Flask==0.12.1
+python-resize-image
+gunicorn

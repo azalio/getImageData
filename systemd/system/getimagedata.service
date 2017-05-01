@@ -1,0 +1,19 @@
+[Unit]
+Description=getImageData daemon
+# Requires=getImageData.socket
+After=network.target
+
+[Service]
+PIDFile=/run/gunicorn/getImageData.pid
+User=azalio
+Group=www-data
+WorkingDirectory=/home/azalio/prog/getImageData
+Environment="PATH=/home/azalio/prog/getImageData/venv/bin"
+ExecStart=/home/azalio/prog/getImageData/venv/bin/gunicorn --workers 3 --bind unix:getImageData.sock -m 007 wsgi:app
+
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -45,11 +45,11 @@ def image(image_hash="test", width=100, height=100):
     elif os.path.isfile(filepath_orig):
         """If orig path exists - resize and redirect"""
         resize_image(filepath_orig, width, height)
-        return redirect(url_for('image', image_hash=image_hash, width=width, height=height))
+        return redirect(url_for('image', image_hash=image_hash, width=width, height=height, _external=True))
     else:
         """If the path doesn't exist - send any image and download new for future use."""
         image_name = "{}/{}".format(IMAGE_UPLOAD_DIR, random.choice(os.listdir(IMAGE_UPLOAD_DIR)))
         link_filepath = "{}/{}".format(IMAGE_UPLOAD_DIR, image_hash)
         os.link(image_name, link_filepath)
         get_new_image()
-        return redirect(url_for('image', image_hash=image_hash, width=width, height=height))
+        return redirect(url_for('image', image_hash=image_hash, width=width, height=height, _external=True))
